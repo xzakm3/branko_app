@@ -1,4 +1,4 @@
-<%= form_tag(test_path) do %>
+<%= form_tag(turkey_data_path(farm: request.fullpath)) do %>
 
     <h1>úhyny na každú halu</h1>
     <%= fields_for :death do |builder| %>
@@ -10,8 +10,10 @@
     <h1>znáška na každú halu</h1>
     <%= fields_for :hatch do |builder| %>
       <% (1..@halls).each do |hall_index|%>
-          <%= number_field_tag "hall#{hall_index}_raw", class: 'form-control'%>
-          <%= number_field_tag "hall#{hall_index}_sorted", class: 'form-control'%>
+        <%= builder.fields_for "hall#{hall_index}" do |f| %>
+          <%= f.number_field "raw", class: 'form-control'%>
+          <%= f.number_field "sorted", class: 'form-control'%>
+        <% end %>
       <% end %>
     <% end %>
 
