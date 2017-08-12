@@ -12,5 +12,7 @@ Rails.application.routes.draw do
   get '/mala_stefanovicova', to: 'turkey_data#new'
   get '/test', to: 'turkey_data#new'
   get  '/signup',  to: 'users#new'
+  post '/signup', to: 'users#create'
   post '/turkey_data', to: 'turkey_data#create'
+  resources :users
 end
