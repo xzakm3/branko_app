@@ -3,7 +3,8 @@ require 'test_helper'
 class UsersLoginTest < ActionDispatch::IntegrationTest
 
   def setup
-    @user = users(:michael)
+    @admin = users(:michael)
+    @non_admin = users(:archer)
   end
 
 
@@ -20,25 +21,41 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert flash.empty?
   end
 
-  test "login with valid information" do
+  test "login with valid information and role is admin" do
     get login_path
     assert_template 'sessions/new'
     post login_path, params: { session: {
-        name: @user.name,
+        name: @admin.name,
         password: 'testtest'
     }}
     follow_redirect!
     assert_template 'users/show'
     assert_select "a[href=?]", login_path, count: 0
     assert_select "a[href=?]", logout_path, count: 1
-    assert_select "a[href=?]", user_path(@user), count: 1
+    assert_select "a[href=?]", user_path(@admin), count: 1
+    assert_select "a[href=?]", users_path, count: 1
+  end
+
+  test "login with valid information and role is regular_user" do
+    get login_path
+    assert_template 'sessions/new'
+    post login_path, params: {session: {
+        name: @non_admin.name,
+        password: 'testtest'
+    }}
+    follow_redirect!
+    assert_template 'users/show'
+    assert_select "a[href=?]", login_path, count: 0
+    assert_select "a[href=?]", logout_path, count: 1
+    assert_select "a[href=?]", user_path(@non_admin), count: 1
+    assert_select "a[href=?]", users_path, count: 0
   end
 
   test "login with valid information followed by logout" do
     get login_path
     assert_template 'sessions/new'
     post login_path, params: { session: {
-        name: @user.name,
+        name: @admin.name,
         password: 'testtest'
     }}
     follow_redirect!
@@ -46,7 +63,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_template 'users/show'
     assert_select "a[href=?]", login_path, count: 0
     assert_select "a[href=?]", logout_path, count: 1
-    assert_select "a[href=?]", user_path(@user), count: 1
+    assert_select "a[href=?]", user_path(@admin), count: 1
+    assert_select "a[href=?]", users_path, count: 1
     delete logout_path
     assert_not is_logged_in?
     follow_redirect!
@@ -55,16 +73,17 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_select "a[href=?]", login_path, count: 1
     assert_select "a[href=?]", logout_path, count: 0
-    assert_select "a[href=?]", user_path(@user), count: 0
+    assert_select "a[href=?]", user_path(@admin), count: 0
+    assert_select "a[href=?]", users_path, count: 0
   end
 
   test "login with remembering" do
-    log_in_as(@user, '1')
+    log_in_as(@admin, '1')
     assert_not_nil cookies['remember_token']
   end
 
   test "login without remembering" do
-    log_in_as(@user, '0')
+    log_in_as(@admin, '0')
     assert_nil( cookies['remember_token'])
   end
 
