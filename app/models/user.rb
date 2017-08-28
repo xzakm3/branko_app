@@ -1,13 +1,16 @@
 class User < ApplicationRecord
-  has_many :assignments
+  has_many :assignments, dependent: :delete_all
   has_many :roles, through: :assignments
   accepts_nested_attributes_for :assignments
 
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :activation_token
   has_secure_password
 
-  before_save {self.email = email.downcase
-              self.name = name.downcase}
+  before_save :downcase_email
+  before_save :downcase_name
+  before_create :create_activation_digest
+
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   validates :name,
@@ -52,6 +55,21 @@ class User < ApplicationRecord
 
   def role?(role)
     roles.any? {|r| r.name.underscore.to_sym == role}
+  end
+
+  private
+
+  def downcase_email
+    self.email = email.downcase
+  end
+
+  def downcase_name
+    self.name = name.downcase
+  end
+
+  def create_activation_digest
+    self.activation_token = User.new_token
+    self.activation_digest = User.digest(activation_token)
   end
 
 end

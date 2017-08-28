@@ -1,6 +1,6 @@
 class Role < ApplicationRecord
-  ADMIN = 1
-  REGULAR_USER = 2
+  ADMIN = Role.find_by(name: "Admin").id
+  REGULAR_USER = Role.find_by(name: "RegularUser").id
 
   has_many :assignments
 
