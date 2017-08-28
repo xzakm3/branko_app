@@ -4,10 +4,9 @@ class UserSignupTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
-
   test "invalid signup information" do
     get signup_path
-    assert_select 'form[action="/signup"]'
+    assert_select 'form[action="/users"]'
     assert_no_difference 'User.count' do
       post signup_path, params: { user: {
           name: "",
@@ -22,7 +21,7 @@ class UserSignupTest < ActionDispatch::IntegrationTest
 
   test "valid signup information" do
     get signup_path
-    assert_select 'form[action="/signup"]'
+    assert_select 'form[action="/users"]'
     assert_difference 'User.count',1 do
       post signup_path, params: {user: {
           name: "misinecko",
@@ -32,5 +31,20 @@ class UserSignupTest < ActionDispatch::IntegrationTest
       }}
     end
     assert_not flash.empty?
+  end
+
+  test "role regular_user after sign up" do
+    @user = User.new(name: "jozinecko", email: "jozinecko@jozinecko.jozinecko", password: "jozinecko", password_confirmation: "jozinecko")
+    get signup_path
+    assert_select 'form[action="/users"]'
+    assert_difference 'User.count', 1 do
+      post signup_path, params: {user: {
+          name: @user.name,
+          email: @user.email,
+          password: @user.password,
+          password_confirmation: @user.password_confirmation
+      }}
+    end
+
   end
 end

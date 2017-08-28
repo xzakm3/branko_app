@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  has_many :assignments
+  has_many :roles, through: :assignments
+  accepts_nested_attributes_for :assignments
+
   attr_accessor :remember_token
   has_secure_password
 
@@ -44,6 +48,10 @@ class User < ApplicationRecord
 
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  def role?(role)
+    roles.any? {|r| r.name.underscore.to_sym == role}
   end
 
 end
