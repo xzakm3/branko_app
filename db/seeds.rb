@@ -26,3 +26,5 @@ User.create!(name: "Example User",
 end
 
 Role.create([{name: "Admin"}, {name: "RegularUser"}])
+Farm.create([{name: "štefanovičová", halls: 10}, {name: "borovce", halls: 8}, {name: "podhorany", halls: 6}, {name: "horné saliby", halls: 6},
+             {name: "čabaj", halls: 14}, {name: "malá štefanovičová", halls: 6}])
