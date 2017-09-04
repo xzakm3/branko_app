@@ -1,1 +1,8 @@
-<%= @user.name %>, <%= @user.email %>
+<% if @user.farm %>
+    <%= @user.farm.name %>
+<% end %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= render 'farm/farm_info' %>
+  </div>
+</div>

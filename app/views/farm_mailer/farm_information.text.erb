@@ -1,0 +1,18 @@
+Farma <%= @user.farm.name %>
+
+Úhyny na každú halu:
+<% @deaths.each_with_index do |(key, value), index| %>
+    <% break if index == @halls %>
+    <%= key %>: <%= value %>
+<% end %>
+
+Znášky na každú halu:
+<% @hatches.each_with_index do |(key, value), index| %>
+    <% break if index == @halls %>
+    <%= key %>:
+    V čistom:
+    V hrubom:
+<% end %>
+
+Odoslal: <%= @user.name %>
+Dátum: <%= Time.zone.now %>

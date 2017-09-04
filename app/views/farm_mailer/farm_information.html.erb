@@ -1,0 +1,29 @@
+<h1>Farma <%= @user.farm.name %></h1>
+
+<h2>Úhyny na každú halu:</h2>
+<% @deaths.each_with_index do |(key, value), index| %>
+    <% break if index == @halls %>
+    <p>
+      <b><%= key %>:</b> <%= value.empty? ? 0 : value %>
+    </p>
+<% end %>
+
+<h2>Znášky na každú halu:</h2>
+<% @hatches.each_with_index do |(key, value), index| %>
+    <% break if index == @halls %>
+    <p>
+      <b><%= key %>:</b>
+    </p>
+    <p>
+      V čistom:
+    </p>
+    <p>
+      V hrubom:
+    </p>
+<% end %>
+<p>
+  Odoslal: <%= @user.name %>
+</p>
+<p>
+  Dátum: <%= Time.zone.now %>
+</p>

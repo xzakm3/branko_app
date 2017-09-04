@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  belongs_to :farm
   has_many :assignments, dependent: :delete_all
   has_many :roles, through: :assignments
   accepts_nested_attributes_for :assignments
@@ -64,6 +65,10 @@ class User < ApplicationRecord
 
   def send_activation_email
     UserMailer.account_activation(self).deliver_now
+  end
+
+  def send_farm_info_email(death_info, hatch_info)
+    FarmMailer.farm_information(self, death_info, hatch_info).deliver_now
   end
 
   private
