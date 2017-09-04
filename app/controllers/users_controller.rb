@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :admin_user, only: [:destroy, :index]
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.where(activated: true).paginate(page: params[:page])
   end
 
   def new
@@ -13,6 +13,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    redirect_to root_url unless @user.activated?
   end
 
   def create
@@ -20,8 +21,9 @@ class UsersController < ApplicationController
     User.transaction do
       if (@user.save)
         @user.assignments.first_or_create!(user_id: @user.id, role_id: Role::REGULAR_USER) #test na validaciu ci kazdy user bude mat rolu
+        @user.send_activation_email
+        flash[:info] = "Please check your email to activate your account."
         redirect_to root_url
-        flash[:success] = "Check your email and confirm registration, please."
       else
         render 'new'
       end
