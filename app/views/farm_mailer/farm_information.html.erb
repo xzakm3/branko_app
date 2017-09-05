@@ -15,10 +15,10 @@
       <b><%= key %>:</b>
     </p>
     <p>
-      V čistom:
+      V hrubom: <%= value["raw"].empty? ? 0 : value["raw"] %>
     </p>
     <p>
-      V hrubom:
+      V čistom: <%= value["sorted"].empty? ? 0 : value["sorted"] %>
     </p>
 <% end %>
 <p>
