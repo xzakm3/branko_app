@@ -21,4 +21,4 @@ Komentár:
 <%= @hatches[:comment].empty? ? "Žiadny" : @hatches[:comment] %>
 
 Odoslal: <%= @user.name %>
-Dátum: <%= Time.zone.now %>
+Dátum: <%= Time.new.strftime("%Y-%m-%d %H:%M:%S") %>

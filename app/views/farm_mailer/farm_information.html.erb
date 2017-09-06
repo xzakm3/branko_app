@@ -83,7 +83,7 @@
           <td>
             <p>
               <span class="left small-text">Odoslal: <%= @user.name.capitalize %> </span><br>
-              <span class="left small-text">Dátum: <%= Time.zone.now %> </span>
+              <span class="left small-text">Dátum: <%= Time.new.strftime("%Y-%m-%d %H:%M:%S") %> </span>
             </p>
           </td>
 
