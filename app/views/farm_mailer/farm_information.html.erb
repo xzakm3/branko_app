@@ -1,29 +1,101 @@
-<h1>Farma <%= @user.farm.name %></h1>
+<!--[if (gte mso 9)|(IE)]>
+<table width="100%" bgcolor="#f6f8f1" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+<![endif]-->
+<table class="content" align="center" cellpadding="0" cellspacing="0" border="0">
+  <tr>
 
-<h2>Úhyny na každú halu:</h2>
-<% @deaths.each_with_index do |(key, value), index| %>
-    <% break if index == @halls %>
-    <p>
-      <b><%= key %>:</b> <%= value.empty? ? 0 : value %>
-    </p>
-<% end %>
+    <td>
+      <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0" style="text-align: center;">
+        <tr>
+          <td>
+            <%= image_tag(attachments['logo.png'].url) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h1 id="farm-title"><%= @user.farm.name %></h1>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0" style="text-align: center;">
+        <thead>
+        <h2>Úhyny na každú halu</h2>
+        <tr>
+          <th>Hala č.</th>
+          <th>Počet</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @deaths[:halls].each_with_index do |(key, value), index| %>
+            <% break if index == @halls %>
+            <tr>
+              <td><%= key %></td>
+              <td><%= value.empty? ? 0 : value %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+          <td>
+            <p><b>Komentár:</b></p>
+            <span class="small-text"><%= @deaths[:comment].empty? ? "Žiadny" : @deaths[:comment] %></span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0" style="text-align: center;">
+        <thead>
+        <h2>Znášky na každú halu</h2>
+        <tr>
+          <th>Hala č.</th>
+          <th>V hrubom</th>
+          <th>V čistom</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @hatches[:halls].each_with_index do |(key, value), index| %>
+            <% break if index == @halls %>
+            <tr>
+              <td><%= key %></td>
+              <td><%= value["raw"].empty? ? 0 : value["raw"] %></td>
+              <td><%= value["sorted"].empty? ? 0 : value["sorted"] %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+          <td>
+            <p><b>Komentár:</b></p>
+            <span class="small-text"><%= @hatches[:comment].empty? ? "Žiadny" : @hatches[:comment] %></span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <table width="100%" id="footer" class="sm-padding">
+        <tbody>
+        <tr>
+          <td>
+            <p>
+              <span class="left small-text">Odoslal: <%= @user.name.capitalize %> </span><br>
+              <span class="left small-text">Dátum: <%= Time.zone.now %> </span>
+            </p>
+          </td>
 
-<h2>Znášky na každú halu:</h2>
-<% @hatches.each_with_index do |(key, value), index| %>
-    <% break if index == @halls %>
-    <p>
-      <b><%= key %>:</b>
-    </p>
-    <p>
-      V hrubom: <%= value["raw"].empty? ? 0 : value["raw"] %>
-    </p>
-    <p>
-      V čistom: <%= value["sorted"].empty? ? 0 : value["sorted"] %>
-    </p>
-<% end %>
-<p>
-  Odoslal: <%= @user.name %>
-</p>
-<p>
-  Dátum: <%= Time.zone.now %>
-</p>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table>
+<!--[if (gte mso 9)|(IE)]>
+</td>
+</tr>
+</table>
+<![endif]-->
+
