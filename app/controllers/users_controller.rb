@@ -13,6 +13,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @halls = @user.farm.halls
     redirect_to root_url unless @user.activated?
   end
 

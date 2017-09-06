@@ -1,0 +1,24 @@
+Farma <%= @user.farm.name %>
+
+Úhyny na každú halu:
+<% @deaths[:halls].each_with_index do |(key, value), index| %>
+    <% break if index == @halls %>
+    <%= key %>: <%= value.empty? ? 0 : value %></td>
+<% end %>
+
+Komentár:
+<%= @deaths[:comment].empty? ? "Žiadny" : @deaths[:comment] %>
+
+Znášky na každú halu:
+<% @hatches[:halls].each_with_index do |(key, value), index| %>
+    <% break if index == @halls %>
+    <%= key %>:
+    V čistom: <%= value[:raw].empty? ? 0 : value[:raw] %></td>
+    V hrubom: <%= value[:sorted].empty? ? 0 : value[:sorted] %></td>
+<% end %>
+
+Komentár:
+<%= @hatches[:comment].empty? ? "Žiadny" : @hatches[:comment] %>
+
+Odoslal: <%= @user.name %>
+Dátum: <%= Time.new.strftime("%Y-%m-%d %H:%M:%S") %>

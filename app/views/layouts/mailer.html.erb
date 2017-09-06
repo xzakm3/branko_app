@@ -2,12 +2,103 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <style>
-      /* Email styles need to be inline */
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+        min-width: 100% !important;
+      }
+
+      .content {
+        width: 100%;
+        max-width: 600px;
+      }
+
+      @media only screen and (min-device-width: 601px) {
+        .content {
+          width: 600px !important;
+        }
+      }
+
+      h1#farm-title {
+        line-height: 2;
+        font-size: 2.5em;
+        letter-spacing: -2px;
+        margin-bottom: 30px;
+        text-align: center;
+        text-transform: uppercase;
+        font-family: 'Montserrat', sans-serif;
+        background: #0088cc;
+        color: white;
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px
+      }
+
+      h2 {
+        font-size: 2em;
+        text-align: center;
+        font-weight: normal;
+        color: #555;
+        font-family: 'Montserrat', sans-serif;
+        margin: 0px !important;
+        padding: 20px;
+        border-right: 1px solid #dddddd;
+        border-left: 1px solid #dddddd;
+      }
+
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .content table:not(:first-child) td, .content table:not(:first-child) th {
+
+        border: 1px solid #dddddd;
+        padding: 13px;
+      }
+
+      .content table:not(:first-child) tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+
+      .left {
+        float: left;
+      }
+
+      .right {
+        float: right;
+      }
+
+      .sm-padding {
+        padding: 5px !important;
+      }
+
+      .md-padding {
+        padding: 15px !important;
+      }
+
+      .lg-padding {
+        padding: 30px !important;
+      }
+
+      #footer {
+        margin-bottom: 20px;
+      }
+
+      .small-text {
+        font-size: 13px;
+      }
+
+      #footer td {
+        padding: 10px !important;
+      }
     </style>
   </head>
 
-  <body>
+  <body yahoo>
     <%= yield %>
   </body>
 </html>

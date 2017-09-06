@@ -1,0 +1,41 @@
+<%= form_tag(farm_data_path(id: current_user), id: 'farm-form') do %>
+
+    <h2>úhyny na každú halu</h2>
+    <%= fields_for :death do |builder| %>
+        <%= builder.fields_for :halls do |b| %>
+            <% (1..@halls).each do |hall_index| %>
+                <%= b.number_field "#{hall_index}", class: 'form-control', placeholder: "Hala #{hall_index}" %>
+            <% end %>
+        <% end %>
+        <%= builder.text_area :comment, class: 'form-control', :rows => 4, :cols => 50, placeholder: 'Komentár...' %>
+    <% end %>
+
+    <h2>znáška na každú halu</h2>
+    <div class="row">
+      <div class="col-xs-6 col-sm-6 col-md-6 text-center farm-form-text">
+        V hrubom:
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 text-center farm-form-text">
+        V čistom:
+      </div>
+    </div>
+    <%= fields_for :hatch do |builder| %>
+        <%= builder.fields_for :halls do |b| %>
+            <% (1..@halls).each do |hall_index| %>
+                <%= b.fields_for "#{hall_index}" do |f| %>
+                    <div class="row">
+                      <div class="col-xs-6 col-sm-6 col-md-6">
+                        <%= f.number_field "raw", class: 'form-control', placeholder: "Hala #{hall_index}" %>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6">
+                        <%= f.number_field "sorted", class: 'form-control', placeholder: "Hala#{hall_index}" %>
+                      </div>
+                    </div>
+                <% end %>
+            <% end %>
+        <% end %>
+        <%= builder.text_area :comment, class: 'form-control', :rows => 4, :cols => 50, placeholder: 'Komentár...' %>
+    <% end %>
+
+    <%= submit_tag "Odoslať", class: "btn btn-primary" %>
+<% end %>
