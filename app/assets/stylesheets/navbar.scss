@@ -3,10 +3,6 @@
 }
 
 /**
-.label, .glyphicon {
-  margin-right: 5px;
-}
-
 #logo {
   float: left;
   margin-right: 10px;
@@ -43,6 +39,10 @@
 #logo-image {
   margin-left: 15px;
   width: 90px;
+}
+
+.glyphicon {
+  margin-right: 5px;
 }
 
 @media screen and (min-width: 768px) {
