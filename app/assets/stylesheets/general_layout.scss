@@ -13,13 +13,11 @@ $gray-medium-light: #eaeaea;
 
 /* universal */
 
-#logo-image {
-  margin: 0 auto;
-  width: 110px;
-}
-
 body {
   padding-top: 60px;
+  > .container {
+    margin-top: 35px;
+  }
 }
 
 section {
@@ -75,6 +73,27 @@ h2 {
   font-family: 'Montserrat', sans-serif;
 }
 
+.farm-form-text {
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-weight: normal;
+  font-size: 1em;
+  letter-spacing: 2px;
+}
+
+@media screen and (max-width: 390px) {
+  h1 {
+    font-size: 2.3em;
+  }
+  h2 {
+    font-size: 1.6em;
+  }
+  .farm-form-text {
+    font-size: 0.85em;
+  }
+}
+
 p {
   font-size: 1.1em;
   line-height: 1.7em;
@@ -112,22 +131,6 @@ input, textarea, select, .uneditable-input {
 
 input {
   height: auto !important;
-}
-
-#farm-form {
-  padding: 0px 50px 50px 50px;
-  border: 1px solid #ddd;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-.farm-form-text {
-  font-family: 'Montserrat', sans-serif;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  font-weight: normal;
-  font-size: 1em;
-  letter-spacing: 2px;
 }
 
 .btn-primary {
