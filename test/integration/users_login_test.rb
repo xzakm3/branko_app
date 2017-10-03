@@ -17,8 +17,6 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     }}
     assert_template 'sessions/new'
     assert flash.any?
-    get signup_path
-    assert flash.empty?
   end
 
   test "login with valid information and role is admin" do

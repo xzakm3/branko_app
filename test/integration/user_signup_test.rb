@@ -9,10 +9,13 @@ class UserSignupTest < ActionDispatch::IntegrationTest
   #   assert true
   # end
   test "invalid signup information" do
-    get signup_path
+    @admin = users(:michael)
+    log_in_as(@admin, '1')
+    assert_not_nil cookies['remember_token']
+    get signup_user_path
     assert_select 'form[action="/users"]'
     assert_no_difference 'User.count' do
-      post signup_path, params: { user: {
+      post signup_user_path, params: {user: {
           name: "",
           email: "example@example.com",
           password: "foobar",
@@ -24,10 +27,12 @@ class UserSignupTest < ActionDispatch::IntegrationTest
   end
 
   test "valid signup information" do
-    get signup_path
+    @admin = users(:michael)
+    log_in_as(@admin, '1')
+    get signup_user_path
     assert_select 'form[action="/users"]'
     assert_difference 'User.count',1 do
-      post signup_path, params: {user: {
+      post signup_user_path, params: {user: {
           name: "misinecko",
           email: "misinecko@misinecko.misinecko",
           password: "misinecko",
@@ -35,6 +40,7 @@ class UserSignupTest < ActionDispatch::IntegrationTest
       }}
     end
     assert_not flash.empty?
+=begin
     assert_equal 1, ActionMailer::Base.deliveries.size
     user = assigns(:user)
     assert_not user.activated?
@@ -53,20 +59,7 @@ class UserSignupTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_template 'sessions/new'
     assert flash.any?
+=end
   end
 
-  test "role regular_user after sign up" do
-    @user = User.new(name: "jozinecko", email: "jozinecko@jozinecko.jozinecko", password: "jozinecko", password_confirmation: "jozinecko")
-    get signup_path
-    assert_select 'form[action="/users"]'
-    assert_difference 'User.count', 1 do
-      post signup_path, params: {user: {
-          name: @user.name,
-          email: @user.email,
-          password: @user.password,
-          password_confirmation: @user.password_confirmation
-      }}
-    end
-
-  end
 end

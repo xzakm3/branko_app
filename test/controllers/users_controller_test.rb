@@ -7,8 +7,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @non_admin = users(:archer)
   end
 
-  test "should get new" do
-    get users_new_url
+  test "should get home" do
+    get home_url
     assert_response :success
   end
 
