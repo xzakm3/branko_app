@@ -1,6 +1,6 @@
 <% provide(:title, 'Používatelia') %>
 <h1>All users</h1>
-<%= link_to "Vytvor užívateľa", signup_path, class: "btn btn-primary" %>
+<%= link_to "Vytvor užívateľa", signup_user_path, class: "btn btn-primary" %>
 <ul class="users">
   <% @users.each do |user| %>
       <%= render user %>

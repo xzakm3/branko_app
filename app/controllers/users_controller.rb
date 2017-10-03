@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update, :show, :index, :destroy]
   before_action :correct_user, only: [:edit, :update, :show]
-  before_action :admin_user, only: [:destroy, :index]
+  before_action :admin_user, only: [:destroy, :index, :create, :new]
 
   def index
     @users = User.where(activated: true).paginate(page: params[:page])
@@ -71,7 +71,10 @@ class UsersController < ApplicationController
   end
 
   def admin_user
-    unless current_user.role?(:admin)
+    if !logged_in?
+      flash[:warning] = "Please, contact adming to registrate you."
+      redirect_to home_path
+    elsif !current_user.role?(:admin)
       flash[:info] = "Only admin can view this page."
       redirect_to user_path(current_user)
     end

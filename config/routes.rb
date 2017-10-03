@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'static_pages#home'
   get '/home', to: 'static_pages#home'
-  get  '/signup',  to: 'users#new'
-  post '/signup', to: 'users#create'
+  get '/signup_user', to: 'users#new'
+  post '/signup_user', to: 'users#create'
   post '/farm_data', to: 'hall_detail#create'
 
   get '/login', to: 'sessions#new'
